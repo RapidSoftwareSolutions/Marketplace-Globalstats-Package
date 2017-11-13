@@ -27,6 +27,14 @@ Create new statistics for the first time.With Access Token you can now start cre
 | name       | String| The name value within the Body of the Request specifies with what name your user will be displayed in the Highscores.
 | values     | JSON  | The values themself are the GTD's that you defined in your game configuration. Those consist of a key-value pair.
 
+##### Example for values field
+```
+    {
+        "highscore":119,
+        "score":123
+    }
+```
+
 ## Globalstats.updateStatistics
  Once you created a Statistic with the previous request, you can now freely push and updated values for this Statistic. As we want to have this process as easy and efficient as possible we do allow relative updates and also allow creating new values within the update request.
 
@@ -37,8 +45,18 @@ Create new statistics for the first time.With Access Token you can now start cre
 | name       | String| The name value within the Body of the Request specifies with what name your user will be displayed in the Highscores.
 | values     | JSON  | The values themself are the GTD's that you defined in your game configuration. Those consist of a key-value pair.
 
+##### Example for values field
+```
+    {
+        "highscore":119,
+        "score":123
+    }
+```
+
+##### Additional info
+
 First, lets go over the important values of this request.
-Within the URL you specify to which Statistic this update should be applied. This is the _id value that was returned from the create request. So the URL that you are calling looks like this in the above example: https://api.globalstats.io/v1/statistics/569c13eb5c25653b008b456d
+Within the URL you specify to which Statistic this update should be applied. This is the _id value that was returned from the create request. So the URL that you are calling looks like this in the above example: `https://api.globalstats.io/v1/statistics/569c13eb5c25653b008b456d`
 Again, the Authorization header is added to authenticate with the API.
 Then the values is added, same as for the create request, but now with the difference that you can supply relative values! You can either supply a normal number which will overwrite the one stored in our system if it would improve the users ranking for this value, or you supply one of the following relative updates:
 

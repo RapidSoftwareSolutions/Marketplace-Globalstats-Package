@@ -319,7 +319,6 @@
                 }
             ]
         },
-
         {
             "name": "getUsersAchievements",
             "description": "This call will return the achivements in the same way as Get all Achievements but will include a flag if the achievement is already accomplished by the user.",
