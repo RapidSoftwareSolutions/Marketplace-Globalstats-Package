@@ -1,0 +1,445 @@
+{
+    "package": "Globalstats",
+    "tagline": "Globalstats API",
+    "description": "Enrich your games' experience by adding a global highscore for your games. We offer an independent, platform agnostic infrastructure for your games statistics.",
+    "image": "https:\/\/logo.clearbit.com\/\/globalstats.io",
+    "repo": "https:\/\/github.com\/RapidSoftwareSolutions\/Marketplace-Globalstats-Package",
+    "keywords": [
+        "API",
+        "Games",
+        "Statistics"
+    ],
+    "accounts": {
+        "domain": "globalstats.io",
+        "credentials": [
+            "clientId",
+            "clientSecret"
+        ]
+    },
+    "steps": [
+        "Register on the https:\/\/globalstats.io",
+        "Create an game-application for a new API credentials https:\/\/app.cronofy.com\/oauth\/applications\/new",
+        "After creation app,in tab `My Games` click `Details` https:\/\/globalstats.io\/users"
+    ],
+    "blocks": [
+        {
+            "name": "getAccessToken",
+            "description": "To retrieve a Access Token simply send a request to API.This request has a dedicated rate limit. A maximum of 6 requests per minute are allowed.",
+            "args": [
+                {
+                    "name": "clientId",
+                    "type": "credentials",
+                    "info": "Your client id.",
+                    "required": true,
+                    "vendorSchema": {
+                        "name": "client_id"
+                    }
+                },
+                {
+                    "name": "clientSecret",
+                    "type": "credentials",
+                    "info": "Your client secret.",
+                    "required": true,
+                    "vendorSchema": {
+                        "name": "client_secret"
+                    }
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.globalstats.io\/oauth\/access_token?grant_type=client_credentials&scope=endpoint_client&client_id={$data['client_id']}&client_secret={$data['client_secret']}",
+                "method": "post",
+                "requestParameters": []
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "createStatistics",
+            "description": "Create new statistics for the first time.With Access Token you can now start creating highscores. Make sure that you have your GTD's are set up. If not, head over to your game settings and create the GTD's you want to track. ",
+            "args": [
+                {
+                    "name": "accessToken",
+                    "type": "String",
+                    "info": "Access Token from `getAccessToken` method.",
+                    "required": true
+                },
+                {
+                    "name": "name",
+                    "type": "String",
+                    "info": "The name value within the Body of the Request specifies with what name your user will be displayed in the Highscores.",
+                    "required": true
+                },
+                {
+                    "name": "values",
+                    "type": "JSON",
+                    "info": "The values themself are the GTD's that you defined in your game configuration. Those consist of a key-value pair.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+                "headers": {
+                    "Authorization": "Bearer {$data['accessToken']}"
+                },
+                "url": "https:\/\/api.globalstats.io\/v1\/statistics",
+                "method": "post",
+                "requestParameters": [
+                    {
+                        "type": "json",
+                        "parameters": [
+                            "name",
+                            "values"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "updateStatistics",
+            "description": " Once you created a Statistic with the previous request, you can now freely push and updated values for this Statistic. As we want to have this process as easy and efficient as possible we do allow relative updates and also allow creating new values within the update request.See more in readme.",
+            "args": [
+                {
+                    "name": "accessToken",
+                    "type": "String",
+                    "info": "Access Token from `getAccessToken` method.",
+                    "required": true
+                },
+                {
+                    "name": "statisticId",
+                    "type": "String",
+                    "info": "Id of the statistic.",
+                    "required": true
+                },
+                {
+                    "name": "name",
+                    "type": "String",
+                    "info": "The name value within the Body of the Request specifies with what name your user will be displayed in the Highscores.",
+                    "required": true
+                },
+                {
+                    "name": "values",
+                    "type": "JSON",
+                    "info": "The values themself are the GTD's that you defined in your game configuration. Those consist of a key-value pair.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+                "headers": {
+                    "Authorization": "Bearer {$data['accessToken']}"
+                },
+                "url": "https:\/\/api.globalstats.io\/v1\/statistics\/{$data['statisticId']}",
+                "method": "put",
+                "requestParameters": [
+                    {
+                        "type": "json",
+                        "parameters": [
+                            "name",
+                            "values"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getStatistic",
+            "description": "Get statistic by id.See more in readme.",
+            "args": [
+                {
+                    "name": "accessToken",
+                    "type": "String",
+                    "info": "Access Token from `getAccessToken` method.",
+                    "required": true
+                },
+                {
+                    "name": "statisticId",
+                    "type": "String",
+                    "info": "Id of the statistic.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+                "headers": {
+                    "Authorization": "Bearer {$data['accessToken']}"
+                },
+                "url": "https:\/\/api.globalstats.io\/v1\/statistics\/{$data['statisticId']}",
+                "method": "get",
+                "requestParameters": []
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getStatisticSection",
+            "description": "A more advanced way of displaying the ranking of the current user in your game is by using a statistic section. The section contains the current ranking of the user and also the rank of the 5 players that are better and worse then the player.",
+            "args": [
+                {
+                    "name": "accessToken",
+                    "type": "String",
+                    "info": "Access Token from `getAccessToken` method.",
+                    "required": true
+                },
+                {
+                    "name": "statisticId",
+                    "type": "String",
+                    "info": "Id of the statistic.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+                "headers": {
+                    "Authorization": "Bearer {$data['accessToken']}"
+                },
+                "url": "https:\/\/api.globalstats.io\/v1\/statistics\/{$data['statisticId']}\/section\/score",
+                "method": "get",
+                "requestParameters": []
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getLeaderboard",
+            "description": "You can also fetch the current top positions of your leaderboard with a GTD of your choice.",
+            "args": [
+                {
+                    "name": "accessToken",
+                    "type": "String",
+                    "info": "Access Token from `getAccessToken` method.",
+                    "required": true
+                },
+                {
+                    "name": "limit",
+                    "type": "Number",
+                    "info": "Result limit.",
+                    "required": false
+                },
+                {
+                    "name": "additionals",
+                    "type": "JSON",
+                    "info": "Optionally you can supply an array with additionals which can be used to add other GTD values to the response.",
+                    "required": false
+                }
+            ],
+            "vendorRequest": {
+                "headers": {
+                    "Authorization": "Bearer {$data['accessToken']}"
+                },
+                "url": "https:\/\/api.globalstats.io\/v1\/gtdleaderboard\/score",
+                "method": "post",
+                "requestParameters": [
+                    {
+                        "type": "json",
+                        "parameters": [
+                            "limit",
+                            "additionals"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getAllAchievements",
+            "description": "After you have created some achievements for your game, you can easily get all of them directly via the API. This request is usefull if you want to display a Overview of all Achievements.",
+            "args": [
+                {
+                    "name": "accessToken",
+                    "type": "String",
+                    "info": "Access Token from `getAccessToken` method.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+                "headers": {
+                    "Authorization": "Bearer {$data['accessToken']}"
+                },
+                "url": "https:\/\/api.globalstats.io\/v1\/achievements",
+                "method": "get",
+                "requestParameters": []
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "accomplishUserAchievement",
+            "description": "This can be used to accomplish an achievement for example at a specific point in the game like when a boss was beaten.",
+            "args": [
+                {
+                    "name": "accessToken",
+                    "type": "String",
+                    "info": "Access Token from `getAccessToken` method.",
+                    "required": true
+                },
+                {
+                    "name": "statisticId",
+                    "type": "String",
+                    "info": "Id of the statistic.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+                "headers": {
+                    "Authorization": "Bearer {$data['accessToken']}"
+                },
+                "url": "https:\/\/api.globalstats.io\/v1\/statistics\/{$data['statisticId']}\/achievements\/fasterthenlight\/accomplish",
+                "method": "get",
+                "requestParameters": []
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getUsersAchievements",
+            "description": "This call will return the achivements in the same way as Get all Achievements but will include a flag if the achievement is already accomplished by the user.",
+            "args": [
+                {
+                    "name": "accessToken",
+                    "type": "String",
+                    "info": "Access Token from `getAccessToken` method.",
+                    "required": true
+                },
+                {
+                    "name": "statisticId",
+                    "type": "String",
+                    "info": "Id of the statistic.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+                "headers": {
+                    "Authorization": "Bearer {$data['accessToken']}"
+                },
+                "url": "https:\/\/api.globalstats.io\/v1\/statistics\/59a98824566f421b008b4693\/achievements",
+                "method": "get",
+                "requestParameters": []
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "createRegisterLink",
+            "description": "Linking is one of the core components that make this platform unique. It allows your users to link the statistics you create to their own account. By that they are visilbe on the Leaderboards with their account, able to track their progress within their profile and share it with their friends. We highly recommend that you prompt your users to link their statistics with their account. Best checkout one of our Sample Games to see how you can achieve this in your game.",
+            "args": [
+                {
+                    "name": "accessToken",
+                    "type": "String",
+                    "info": "Access Token from `getAccessToken` method.",
+                    "required": true
+                },
+                {
+                    "name": "statisticId",
+                    "type": "String",
+                    "info": "Id of the statistic.",
+                    "required": true
+                },
+                {
+                    "name": "email",
+                    "type": "String",
+                    "info": "User email.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+                "headers": {
+                    "Authorization": "Bearer {$data['accessToken']}"
+                },
+                "url": "https:\/\/api.globalstats.io\/v1\/statisticlinks\/{$data['statisticId']}\/request",
+                "method": "post",
+                "requestParameters": [
+                    {
+                        "type": "json",
+                        "parameters": [
+                            "limit",
+                            "additionals"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        }
+    ]
+}
