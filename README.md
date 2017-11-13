@@ -90,13 +90,6 @@ After you have created some achievements for your game, you can easily get all o
 |------------|-------|----------
 | accessToken| String| Access Token from `getAccessToken` method.
 
-## Globalstats.accomplishUserAchievement
-This can be used to accomplish an achievement for example at a specific point in the game like when a boss was beaten.
-
-| Field      | Type  | Description
-|------------|-------|----------
-| accessToken| String| Access Token from `getAccessToken` method.
-| statisticId| String| Id of the statistic.
 
 ## Globalstats.getUsersAchievements
 This call will return the achivements in the same way as Get all Achievements but will include a flag if the achievement is already accomplished by the user.

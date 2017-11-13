@@ -319,42 +319,7 @@
                 }
             ]
         },
-        {
-            "name": "accomplishUserAchievement",
-            "description": "This can be used to accomplish an achievement for example at a specific point in the game like when a boss was beaten.",
-            "args": [
-                {
-                    "name": "accessToken",
-                    "type": "String",
-                    "info": "Access Token from `getAccessToken` method.",
-                    "required": true
-                },
-                {
-                    "name": "statisticId",
-                    "type": "String",
-                    "info": "Id of the statistic.",
-                    "required": true
-                }
-            ],
-            "vendorRequest": {
-                "headers": {
-                    "Authorization": "Bearer {$data['accessToken']}"
-                },
-                "url": "https:\/\/api.globalstats.io\/v1\/statistics\/{$data['statisticId']}\/achievements\/fasterthenlight\/accomplish",
-                "method": "get",
-                "requestParameters": []
-            },
-            "callbacks": [
-                {
-                    "name": "error",
-                    "info": "Error"
-                },
-                {
-                    "name": "success",
-                    "info": "Success"
-                }
-            ]
-        },
+
         {
             "name": "getUsersAchievements",
             "description": "This call will return the achivements in the same way as Get all Achievements but will include a flag if the achievement is already accomplished by the user.",
