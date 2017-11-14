@@ -22,7 +22,7 @@ $app->post('/api/Globalstats/getUsersAchievements', function ($request, $respons
     
 
     $client = $this->httpClient;
-    $query_str = "https://api.globalstats.io/v1/statistics/59a98824566f421b008b4693/achievements";
+    $query_str = "https://api.globalstats.io/v1/statistics/{$data['statisticId']}/achievements";
 
     
 

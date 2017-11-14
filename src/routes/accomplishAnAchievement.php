@@ -1,10 +1,10 @@
 <?php
 
-$app->post('/api/Globalstats/accomplishUserAchievement', function ($request, $response) {
+$app->post('/api/Globalstats/accomplishAnAchievement', function ($request, $response) {
 
     $settings = $this->settings;
     $checkRequest = $this->validation;
-    $validateRes = $checkRequest->validate($request, ['accessToken','statisticId']);
+    $validateRes = $checkRequest->validate($request, ['accessToken','statisticId','achievementKey']);
 
     if(!empty($validateRes) && isset($validateRes['callback']) && $validateRes['callback']=='error') {
         return $response->withHeader('Content-type', 'application/json')->withStatus(200)->withJson($validateRes);
@@ -12,23 +12,23 @@ $app->post('/api/Globalstats/accomplishUserAchievement', function ($request, $re
         $post_data = $validateRes;
     }
 
-    $requiredParams = ['accessToken'=>'accessToken','statisticId'=>'statisticId'];
+    $requiredParams = ['accessToken'=>'accessToken','statisticId'=>'statisticId','achievementKey'=>'achievementKey'];
     $optionalParams = [];
     $bodyParams = [
     ];
 
     $data = \Models\Params::createParams($requiredParams, $optionalParams, $post_data['args']);
 
-    
+
 
     $client = $this->httpClient;
-    $query_str = "https://api.globalstats.io/v1/statistics/{$data['statisticId']}/achievements/fasterthenlight/accomplish";
+    $query_str = "https://api.globalstats.io/v1/statistics/{$data['statisticId']}/achievements/{$data['achievementKey']}/accomplish";
 
-    
+
 
     $requestParams = \Models\Params::createRequestBody($data, $bodyParams);
     $requestParams['headers'] = ["Authorization"=>"Bearer {$data['accessToken']}"];
-     
+
 
     try {
         $resp = $client->get($query_str, $requestParams);

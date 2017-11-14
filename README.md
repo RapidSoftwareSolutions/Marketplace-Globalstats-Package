@@ -126,3 +126,11 @@ Linking is one of the core components that make this platform unique. It allows 
 | statisticId| String| Id of the statistic.
 | email      | String| User email.
 
+## Globalstats.accomplishAnAchievement
+This can be used to accomplish an achievement for example at a specific point in the game like when a boss was beaten.
+
+| Field      | Type  | Description
+|------------|-------|----------
+| accessToken| String| Access Token from `getAccessToken` method.
+| statisticId| String| Id of the statistic.
+| achievementKey      | String| The key of the achievement.
