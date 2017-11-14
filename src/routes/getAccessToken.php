@@ -22,12 +22,16 @@ $app->post('/api/Globalstats/getAccessToken', function ($request, $response) {
     
 
     $client = $this->httpClient;
-    $query_str = "https://api.globalstats.io/oauth/access_token?grant_type=client_credentials&scope=endpoint_client&client_id={$data['client_id']}&client_secret={$data['client_secret']}";
+    $query_str = "https://api.globalstats.io/oauth/access_token";
 
     
 
     $requestParams = \Models\Params::createRequestBody($data, $bodyParams);
     $requestParams['headers'] = [];
+    $requestParams['form_params']['client_id'] = $data['client_id'];
+    $requestParams['form_params']['scope'] = 'endpoint_client';
+    $requestParams['form_params']['client_secret'] = $data['client_secret'];
+    $requestParams['form_params']['grant_type'] = 'client_credentials';
      
 
     try {
