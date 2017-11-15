@@ -7,7 +7,7 @@ Enrich your games' experience by adding a global highscore for your games. We of
 
 ## How to get credentials: 
 0. Register on the [globalstats.io](https:\/\/globalstats.io)
-1. [Create](https:\/\/app.cronofy.com\/oauth\/applications\/new) an game-application for a new API credentials
+1. [Create](https://globalstats.io/profiles/rapidapi) an game-application for a new API credentials
 2. After creation app,in tab `My Games` click `Details` [here](https:\/\/globalstats.io\/users)
  
 ## Globalstats.getAccessToken
